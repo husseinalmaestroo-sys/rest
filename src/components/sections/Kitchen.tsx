@@ -84,7 +84,7 @@ export function Kitchen() {
             {/* Desktop: one big plate under the headline. */}
             <figure className="mt-16 hidden lg:block">
               <div data-reveal="image">
-                <Photo slot={plates[0].slot} sizes="58vw" className="aspect-[4/5] w-full" drawingClassName="w-[30%]" />
+                <Photo slot={plates[0].slot} sizes="58vw" className="aspect-[4/5] w-full" drawingClassName="w-[58%]" />
               </div>
               <figcaption className="label mt-3 text-paper/60">Fig. 3 — {plates[0].caption}, off the spit</figcaption>
             </figure>

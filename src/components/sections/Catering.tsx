@@ -32,7 +32,7 @@ export function Catering() {
                 sizes="(min-width: 1024px) 66vw, 100vw"
                 briefAt="top"
                 className="deckle aspect-[4/3] w-full lg:aspect-[3/2]"
-                drawingClassName="w-[36%] max-w-80"
+                drawingClassName="w-[58%] max-w-[28rem]"
               />
             </div>
             <figcaption className="label mt-3 px-4 text-ink-soft sm:px-0">Fig. 4 — Set out for the whole family</figcaption>

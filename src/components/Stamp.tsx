@@ -34,7 +34,7 @@ export function Stamp({
           </textPath>
         </text>
       </svg>
-      <Drawing name={drawing} className="absolute inset-[31%]" strokeWidth={2.2} />
+      <Drawing name={drawing} mono className="absolute inset-[31%]" strokeWidth={2.2} />
     </div>
   );
 }

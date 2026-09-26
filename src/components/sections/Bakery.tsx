@@ -80,7 +80,7 @@ export function Bakery() {
           {/* 01 — Pita: the big one, bleeding off the left edge. */}
           <div className="mt-12 grid grid-cols-12 items-end gap-x-6 lg:mt-20">
             <div className="col-span-12 -mx-4 sm:-mx-8 lg:col-span-8 lg:mr-0">
-              <Plate item={pita} className="aspect-[4/3] w-full lg:aspect-[16/10]" sizes="(min-width: 1024px) 66vw, 100vw" drawing="w-[34%] max-w-72" />
+              <Plate item={pita} className="aspect-[4/3] w-full lg:aspect-[16/10]" sizes="(min-width: 1024px) 66vw, 100vw" drawing="w-[56%] max-w-[26rem]" />
             </div>
             <Entry no="01" item={pita} className="col-span-12 mt-6 lg:col-span-4 lg:mt-0 lg:pb-4" />
           </div>

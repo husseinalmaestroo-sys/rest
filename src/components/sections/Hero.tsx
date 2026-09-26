@@ -64,7 +64,7 @@ export function Hero() {
                 priority
                 briefAt="top"
                 className="deckle aspect-[4/5] w-full"
-                drawingClassName="w-[44%] max-w-64"
+                drawingClassName="w-[70%] max-w-96"
               />
             </div>
 
@@ -81,7 +81,7 @@ export function Hero() {
                     sizes="(min-width: 1024px) 15rem, 45vw"
                     className="aspect-square w-full"
                     brief={false}
-                    drawingClassName="w-[50%]"
+                    drawingClassName="w-[74%]"
                   />
                 </div>
                 <p className="hand mt-1 text-center text-[1.4rem] text-ink-soft">the hot counter</p>

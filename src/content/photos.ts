@@ -2,15 +2,14 @@
  * Photo slots for the whole site.
  *
  * Every image on the page is a named slot. Until the shop's own photography
- * is in, a slot renders an art-directed placeholder (toned paper, crop marks,
- * a line drawing of the dish and the shot brief) — never stock or AI food.
+ * is in, a slot renders a colour illustration of the dish on toned paper.
  *
  * To go live with a real photo:
  *   1. Drop the file in /public/photos (e.g. /public/photos/hero-pita.jpg)
  *   2. Set `src: "/photos/hero-pita.jpg"` on the slot below
  *   3. Check the `alt` still describes what is actually in the picture
  *
- * `brief` is the shot list for the photographer, shown on the placeholder.
+ * `brief` is the shot list for the photographer (shown with NEXT_PUBLIC_PHOTO_BRIEFS=on).
  */
 
 import type { DrawingName } from "@/components/drawings";
@@ -35,14 +34,14 @@ export const photos = {
     alt: "A stack of fresh pita on the bakery counter",
     brief: "Vertical. Warm pita stacked high on the counter, steam if possible, hands in frame.",
     drawing: "pita",
-    tone: "wheat",
+    tone: "olive",
   }),
   heroCounter: slot({
     src: null,
     alt: "The prepared food counter at Orland Market & Bakery",
     brief: "Square. The hot counter from the customer's side of the glass.",
     drawing: "shawarma",
-    tone: "paprika",
+    tone: "cream",
   }),
 
   // The market guide
@@ -51,14 +50,14 @@ export const photos = {
     alt: "Bread and baked goods on the market shelves",
     brief: "Bagged bread on the shelf, labels facing out.",
     drawing: "bread",
-    tone: "wheat",
+    tone: "olive",
   }),
   marketPantry: slot({
     src: null,
     alt: "Pantry aisle with jars, tins and spices",
     brief: "Straight-on aisle shot, rows of jars and tins.",
     drawing: "jar",
-    tone: "olive",
+    tone: "paprika",
   }),
   marketFresh: slot({
     src: null,
@@ -72,7 +71,7 @@ export const photos = {
     alt: "Prepared foods ready to take home",
     brief: "Packed containers ready to go, lids on, labels visible.",
     drawing: "container",
-    tone: "paprika",
+    tone: "olive",
   }),
   marketFavorites: slot({
     src: null,
@@ -95,21 +94,21 @@ export const photos = {
     alt: "Cheese pies on a baking tray",
     brief: "Tall. A tray of cheese pies straight from the oven, golden edges.",
     drawing: "cheesePie",
-    tone: "cream",
+    tone: "paprika",
   }),
   bakerySpinach: slot({
     src: null,
     alt: "Spinach pies",
     brief: "Square. Spinach pies piled on paper, one torn open.",
     drawing: "spinachPie",
-    tone: "olive",
+    tone: "cream",
   }),
   bakeryPastries: slot({
     src: null,
     alt: "Pastries in the bakery case",
     brief: "Wide. The pastry case, rows of pieces catching the light.",
     drawing: "pastry",
-    tone: "paprika",
+    tone: "olive",
   }),
   bakeryBread: slot({
     src: null,
@@ -132,7 +131,7 @@ export const photos = {
     alt: "Falafel, just fried",
     brief: "Close. Falafel just out of the fryer, one broken open.",
     drawing: "falafel",
-    tone: "olive",
+    tone: "cream",
   }),
   kitchenHummus: slot({
     src: null,
@@ -146,7 +145,7 @@ export const photos = {
     alt: "Rice with lamb",
     brief: "Three-quarter. A full plate of rice and lamb, generous portion.",
     drawing: "rice",
-    tone: "cream",
+    tone: "olive",
   }),
 
   // Catering
@@ -155,7 +154,7 @@ export const photos = {
     alt: "A catering spread laid out on a long table",
     brief: "Wide. A full table from a real event — trays, bread, hands reaching in.",
     drawing: "platter",
-    tone: "wheat",
+    tone: "olive",
   }),
 
   // About / location
@@ -164,6 +163,6 @@ export const photos = {
     alt: "The Orland Market & Bakery storefront on 151st St",
     brief: "The storefront and sign from across the parking lot, late afternoon.",
     drawing: "storefront",
-    tone: "cream",
+    tone: "wheat",
   }),
 } satisfies Record<string, PhotoSlot>;

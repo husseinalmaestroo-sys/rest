@@ -2,9 +2,9 @@ import Image from "next/image";
 import type { PhotoSlot } from "@/content/photos";
 import { Drawing } from "./drawings";
 
-// Shot briefs help the photographer while the site is in proof. Set
-// NEXT_PUBLIC_PHOTO_BRIEFS=off to hide them if the site launches before the shoot.
-const showBriefs = process.env.NEXT_PUBLIC_PHOTO_BRIEFS !== "off";
+// Shot briefs are for the photographer, not customers. Set
+// NEXT_PUBLIC_PHOTO_BRIEFS=on to show them on the illustrations while planning a shoot.
+const showBriefs = process.env.NEXT_PUBLIC_PHOTO_BRIEFS === "on";
 
 type PhotoProps = {
   slot: PhotoSlot;
@@ -22,7 +22,7 @@ type PhotoProps = {
 
 /**
  * One image slot. Renders the real photograph when `slot.src` is set,
- * otherwise an art-directed proof that holds the composition in place.
+ * otherwise a colour illustration of the dish that holds the composition.
  * The parent decides the frame (aspect ratio, crop, overlap).
  */
 export function Photo({
@@ -32,7 +32,7 @@ export function Photo({
   className = "",
   brief = true,
   briefAt = "bottom",
-  drawingClassName = "w-[38%] max-w-48",
+  drawingClassName = "w-[62%] max-w-80",
 }: PhotoProps) {
   if (slot.src) {
     return (
@@ -58,7 +58,7 @@ export function Photo({
       className={`proof relative isolate overflow-hidden ${className}`}
     >
       <div className="settle lift-on-hover absolute inset-0 grid place-items-center">
-        <Drawing name={slot.drawing} className={`${drawingClassName} opacity-85`} strokeWidth={1.35} />
+        <Drawing name={slot.drawing} className={drawingClassName} strokeWidth={1.3} />
       </div>
       <span className="crop-marks" aria-hidden="true" />
       {brief && showBriefs && (

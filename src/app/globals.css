@@ -269,3 +269,62 @@
     transform: scale(1.025);
   }
 }
+
+/* ------------------------------------------------------------------ */
+/*  Illustration inks (drawings.tsx)                                   */
+/* ------------------------------------------------------------------ */
+
+.illus {
+  --f-line: #2b1d12;
+  --f-shadow: rgb(35 20 10 / 0.18);
+  --f-bread: #ecc98a;
+  --f-crust: #cf9150;
+  --f-toast: #9c5a28;
+  --f-cheese: #f7ebc8;
+  --f-cream: #f7efdc;
+  --f-green: #76863a;
+  --f-greenDark: #4d5a22;
+  --f-olive: #3f4520;
+  --f-red: #b9472c;
+  --f-meat: #7f3f1f;
+  --f-meatLight: #b86b3a;
+  --f-oil: #d9a62a;
+  --f-gold: #d99b3c;
+  --f-pistachio: #8ea443;
+  --f-glass: #e6e7d8;
+  --f-metal: #c7bca2;
+  --f-wood: #9a6533;
+  --f-tahini: #ead5a3;
+  --f-falafel: #8c5424;
+  --f-rice: #f1d98f;
+  --f-plate: #fbf7ee;
+  --f-plateIn: #efe5cf;
+  --f-bowl: #6f8c8a;
+  --f-bowlRim: #8eaaa6;
+  --f-cloth: #efe3cb;
+}
+.proof[data-tone="ink"] .illus {
+  --f-line: #f1e4c8;
+  --f-shadow: rgb(0 0 0 / 0.35);
+}
+.illus.illus-mono {
+  --f-line: currentColor;
+  --f-shadow: transparent;
+  --f-bread: transparent; --f-crust: transparent; --f-toast: transparent; --f-cheese: transparent;
+  --f-cream: transparent; --f-green: transparent; --f-greenDark: transparent; --f-olive: transparent;
+  --f-red: transparent; --f-meat: transparent; --f-meatLight: transparent; --f-oil: transparent;
+  --f-gold: transparent; --f-pistachio: transparent; --f-glass: transparent; --f-metal: transparent;
+  --f-wood: transparent; --f-tahini: transparent; --f-falafel: transparent; --f-rice: transparent;
+  --f-plate: transparent; --f-plateIn: transparent; --f-bowl: transparent; --f-bowlRim: transparent;
+  --f-cloth: transparent;
+}
+
+/* A soft pool of light behind the illustrated subject. */
+.proof::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 55% 48% at 50% 52%, rgb(255 250 235 / 0.28), transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}

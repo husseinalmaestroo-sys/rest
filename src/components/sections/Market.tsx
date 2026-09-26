@@ -69,7 +69,7 @@ export function Market() {
                   <p className="mt-2 max-w-[42ch] font-editorial text-[1.1rem] leading-snug text-ink-soft">{aisle.note}</p>
                 </div>
                 <div className="order-3 mt-2 self-start sm:mt-0 lg:hidden" aria-hidden="true">
-                  <Photo slot={aisle.photo} sizes="7rem" className="aspect-square w-full" brief={false} drawingClassName="w-[62%]" />
+                  <Photo slot={aisle.photo} sizes="7rem" className="aspect-square w-full" brief={false} drawingClassName="w-[82%]" />
                 </div>
               </li>
             ))}
