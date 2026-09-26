@@ -252,10 +252,17 @@
     opacity: 0;
     transform: translateY(1.1rem);
   }
-  .js [data-reveal="image"]:not([data-shown]) {
+  /* Clip the picture inside the wrapper, never the observed wrapper itself:
+     a fully clipped element counts as invisible to IntersectionObserver and
+     would never be revealed. */
+  .js [data-reveal="image"] > * {
+    transition: clip-path 1.1s var(--ease-print);
+    transition-delay: var(--delay, 0ms);
+  }
+  .js [data-reveal="image"]:not([data-shown]) > * {
     clip-path: inset(0 0 100% 0);
   }
-  .js [data-reveal="image"][data-shown] {
+  .js [data-reveal="image"][data-shown] > * {
     clip-path: inset(0 0 0 0);
   }
   .js [data-reveal="slide"]:not([data-shown]) {
