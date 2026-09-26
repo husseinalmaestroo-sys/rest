@@ -35,17 +35,52 @@ export const site = {
   },
 
   /**
-   * Opening hours are not verified yet. Fill in to render them everywhere, e.g.
-   * [{ days: "Mon – Sat", hours: "8am – 9pm" }, { days: "Sun", hours: "9am – 8pm" }]
+   * Weekly opening hours in the shop's local time (America/Chicago), 24-hour
+   * "HH:MM". Not verified yet, so null: the site says "Call for today's hours"
+   * and the open-now badge stays hidden. Fill in to turn both on, e.g.
+   * { mon: ["08:00", "21:00"], tue: ["08:00", "21:00"], ..., sun: null } — null = closed that day.
    */
-  hours: null as null | { days: string; hours: string }[],
+  hours: null as null | Record<Weekday, [open: string, close: string] | null>,
+
+  /** WhatsApp number in international format, digits only (e.g. "17089498890"). Turns on the WhatsApp button on the catering form. */
+  whatsapp: null as string | null,
 
   /** Add real profile URLs when confirmed. Empty values are not rendered. */
   social: {
     facebook: null as string | null,
     instagram: null as string | null,
   },
+
+  /** Online ordering pages, only if the shop is actually listed. Empty values are not rendered. */
+  orderOnline: {
+    doordash: null as string | null,
+    ubereats: null as string | null,
+    grubhub: null as string | null,
+  },
+
+  /**
+   * Answers only the shop can confirm. Each FAQ question stays hidden until
+   * its answer is filled in here (English and Arabic).
+   */
+  facts: {
+    halal: null as null | { en: string; ar: string },
+    parking: null as null | { en: string; ar: string },
+    delivery: null as null | { en: string; ar: string },
+  },
+
+  /**
+   * Seasonal banner windows (inclusive, YYYY-MM-DD). Dates for Ramadan and
+   * the Eids follow the moon — check them each year. Set
+   * NEXT_PUBLIC_FORCE_SEASON=ramadan (or eid-adha) to preview.
+   */
+  seasons: [
+    { id: "ramadan", start: "2027-02-01", end: "2027-03-12" },
+    { id: "eid-adha", start: "2027-05-08", end: "2027-05-19" },
+  ] as { id: SeasonId; start: string; end: string }[],
 } as const;
+
+export type Weekday = "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun";
+export type SeasonId = "ramadan" | "eid-adha";
 
 export const fullAddress = `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`;
 
@@ -63,10 +98,13 @@ export const reviewsHref = `https://www.google.com/maps/search/?api=1&query=${en
   `${site.name} ${fullAddress}`,
 )}`;
 
-export const nav = [
-  { href: "#market", label: "Market" },
-  { href: "#bakery", label: "Bakery" },
-  { href: "#kitchen", label: "Prepared Food" },
-  { href: "#catering", label: "Catering" },
-  { href: "#about", label: "About" },
-] as const;
+export const whatsappHref = (text: string) =>
+  site.whatsapp ? `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}` : null;
+
+/** The season whose window contains `date`, if any. */
+export function activeSeason(date = new Date()): SeasonId | null {
+  const forced = process.env.NEXT_PUBLIC_FORCE_SEASON as SeasonId | undefined;
+  if (forced) return forced;
+  const day = date.toISOString().slice(0, 10);
+  return site.seasons.find((s) => day >= s.start && day <= s.end)?.id ?? null;
+}

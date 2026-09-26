@@ -1,26 +1,22 @@
 import type { CSSProperties } from "react";
-import { kitchenMenu } from "@/content/copy";
+import type { Dict } from "@/content/i18n";
 import { photos } from "@/content/photos";
 import { site, telHref } from "@/content/site";
 import { Photo } from "../Photo";
 import { Folio } from "../SectionHead";
 
-const plates = [
-  { slot: photos.kitchenShawarma, caption: "Shawarma" },
-  { slot: photos.kitchenFalafel, caption: "Falafel" },
-  { slot: photos.kitchenHummus, caption: "Hummus" },
-  { slot: photos.kitchenRice, caption: "Rice & lamb" },
-];
+const plateSlots = [photos.kitchenShawarma, photos.kitchenFalafel, photos.kitchenHummus, photos.kitchenRice];
 
 /** The counter menu: names, dotted leaders, no prices (ask at the counter). */
-function CounterMenu() {
+function CounterMenu({ t }: { t: Dict }) {
+  const k = t.kitchen;
   return (
     <div>
       <div className="border-y-2 border-paper/80 py-1">
-        <p className="label border-y border-paper/40 py-2 text-center text-paper/80">At the hot counter</p>
+        <p className="label border-y border-paper/40 py-2 text-center text-paper/80">{k.counterTitle}</p>
       </div>
       <ul className="mt-2">
-        {kitchenMenu.map((dish, i) => (
+        {k.menu.map((dish, i) => (
           <li
             key={dish.name}
             className="border-b border-paper/15 py-4 lg:py-5"
@@ -37,11 +33,11 @@ function CounterMenu() {
         ))}
       </ul>
       <p className="mt-6 text-paper/75">
-        Wondering what&rsquo;s on today?{" "}
+        {k.askPre}{" "}
         <a href={telHref} className="link-ink whitespace-nowrap text-paper">
-          call {site.phone.display}
+          {k.askCall} <span dir="ltr">{site.phone.display}</span>
         </a>{" "}
-        and ask.
+        {k.askPost}
       </p>
     </div>
   );
@@ -51,21 +47,23 @@ function CounterMenu() {
  * Prepared food on dark espresso ink: the one section that goes dark, so
  * the photography reads like it's under the counter lights.
  */
-export function Kitchen() {
+export function Kitchen({ t }: { t: Dict }) {
+  const k = t.kitchen;
+  const plates = plateSlots.map((slot, i) => ({ slot, caption: k.plates[i] }));
   return (
     <section id="kitchen" aria-labelledby="kitchen-title" className="bg-ink text-paper">
       <div className="mx-auto max-w-[92rem] px-4 pt-16 pb-24 sm:px-8 lg:pt-24 lg:pb-36">
-        <Folio page="03" title="Prepared Food" tone="paper" />
+        <Folio prefix={t.page} page="03" title={k.folio} tone="paper" />
 
         <div className="mt-10 grid grid-cols-12 gap-x-6 lg:mt-14">
           <div className="col-span-12 lg:col-span-7">
             <h2 id="kitchen-title" className="display text-[clamp(4rem,13vw,12rem)] leading-[0.84]" data-reveal="up">
-              Come
+              {k.title1}
               <br />
-              <span className="font-editorial italic text-wheat">hungry.</span>
+              <span className="accent text-wheat">{k.title2}</span>
             </h2>
             <p className="mt-8 max-w-[36ch] font-editorial text-[1.3rem] leading-snug text-paper/80" data-reveal="up">
-              Hot food from the kitchen counter, for lunch on the go or dinner for the whole house.
+              {k.lead}
             </p>
 
             {/* Phones: a swipeable run of plates, like turning pages. */}
@@ -78,7 +76,7 @@ export function Kitchen() {
               ))}
             </div>
             <p className="label mt-2 text-paper/50 lg:hidden" aria-hidden="true">
-              Swipe →
+              {k.swipe}
             </p>
 
             {/* Desktop: one big plate under the headline. */}
@@ -86,13 +84,13 @@ export function Kitchen() {
               <div data-reveal="image">
                 <Photo slot={plates[0].slot} sizes="58vw" className="aspect-[4/5] w-full" drawingClassName="w-[58%]" />
               </div>
-              <figcaption className="label mt-3 text-paper/60">Fig. 3 — {plates[0].caption}, off the spit</figcaption>
+              <figcaption className="label mt-3 text-paper/60">{k.fig}</figcaption>
             </figure>
           </div>
 
           <div className="col-span-12 mt-14 lg:col-span-5 lg:mt-6">
             <div className="lg:sticky lg:top-28">
-              <CounterMenu />
+              <CounterMenu t={t} />
             </div>
           </div>
         </div>

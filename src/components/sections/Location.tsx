@@ -1,28 +1,42 @@
-import { directionsHref, fullAddress, mapEmbedSrc, site, telHref } from "@/content/site";
+import type { Dict } from "@/content/i18n";
+import { directionsHref, mapEmbedSrc, site, telHref } from "@/content/site";
+import { HoursList, OpenNow } from "../Hours";
 import { Folio } from "../SectionHead";
 
+const onlineLabels = { doordash: "DoorDash", ubereats: "Uber Eats", grubhub: "Grubhub" } as const;
+
+export function orderOnlineLinks() {
+  return (Object.keys(onlineLabels) as (keyof typeof onlineLabels)[])
+    .map((k) => ({ label: onlineLabels[k] as string, href: site.orderOnline[k] as string | null }))
+    .filter((l): l is { label: string; href: string } => Boolean(l.href));
+}
+
 /**
- * "Come find us": the street sign you'll actually see, the address set big,
- * and a map printed into the page (toned to match the paper).
+ * "Come find us": the street sign, the address set big, and a map printed
+ * into the page (toned to match the paper).
  */
-export function Location() {
+export function Location({ t }: { t: Dict }) {
+  const l = t.location;
+  const online = orderOnlineLinks();
+
   return (
     <section id="visit" aria-labelledby="visit-title" className="mx-auto max-w-[92rem] px-4 pt-24 pb-24 sm:px-8 lg:pt-36 lg:pb-32">
-      <Folio page="06" title="Visit" />
+      <Folio prefix={t.page} page="07" title={l.folio} />
 
       <div className="mt-10 grid grid-cols-12 gap-x-6 gap-y-12 lg:mt-14">
         <div className="col-span-12 lg:col-span-5">
           <h2 id="visit-title" className="display text-[clamp(3.2rem,5.6vw,6.2rem)]" data-reveal="up">
-            Come <span className="font-editorial italic text-paprika">find</span> us.
+            {l.titlePre} <span className="accent text-paprika">{l.titleEm}</span>
+            {l.titlePost === "." ? "." : ` ${l.titlePost}`}
           </h2>
 
-          {/* Street sign — the green blade on the pole outside. */}
-          <div className="mt-10 inline-flex -rotate-[1.5deg] flex-col items-stretch" aria-hidden="true" data-reveal="slide">
+          {/* Street sign, in the style of the green blades on the poles. */}
+          <div dir="ltr" className="mt-10 inline-flex -rotate-[1.5deg] flex-col items-stretch" aria-hidden="true" data-reveal="slide">
             <div className="flex items-stretch border-2 border-paper bg-olive text-paper shadow-[0_0_0_2px_var(--color-olive)]">
-              <span className="flex items-center border-r-2 border-paper px-3 font-sans text-sm font-bold tracking-wider">
+              <span className="flex items-center border-r-2 border-paper px-3 font-[Alegreya_Sans,sans-serif] text-sm font-bold tracking-wider">
                 9005
               </span>
-              <span className="px-5 py-2 font-sans text-[2rem] font-bold leading-none tracking-wide sm:text-[2.4rem]">
+              <span className="px-5 py-2 font-[Alegreya_Sans,sans-serif] text-[2rem] font-bold leading-none tracking-wide sm:text-[2.4rem]">
                 151<sup className="text-[0.5em]">st</sup> St
               </span>
             </div>
@@ -31,32 +45,28 @@ export function Location() {
 
           <address className="mt-6 not-italic">
             <p className="display text-[clamp(1.9rem,3.2vw,2.6rem)] leading-[1.05]">
-              {site.address.street}
+              {t.header.streetLine}
               <br />
-              {site.address.city}, {site.address.region} {site.address.postalCode}
+              {t.header.cityLine} {site.address.postalCode}
             </p>
           </address>
 
           <dl className="mt-8 grid grid-cols-[6.5rem_1fr] gap-y-3 border-t border-ink pt-5">
-            <dt className="label pt-1 text-ink-soft">Phone</dt>
+            <dt className="label pt-1 text-ink-soft">{l.phone}</dt>
             <dd>
-              <a href={telHref} className="font-editorial text-xl tabular-nums link-ink">
+              <a href={telHref} dir="ltr" className="font-editorial text-xl tabular-nums link-ink">
                 {site.phone.display}
               </a>
             </dd>
-            <dt className="label pt-1 text-ink-soft">Hours</dt>
+            <dt className="label pt-1 text-ink-soft">{l.hours}</dt>
             <dd className="font-editorial text-lg">
               {site.hours ? (
-                <ul>
-                  {site.hours.map((h) => (
-                    <li key={h.days} className="flex gap-3">
-                      <span className="w-24">{h.days}</span>
-                      <span>{h.hours}</span>
-                    </li>
-                  ))}
-                </ul>
+                <>
+                  <OpenNow locale={t.locale} className="mb-2" />
+                  <HoursList locale={t.locale} className="max-w-xs space-y-0.5" />
+                </>
               ) : (
-                <span className="italic text-ink-soft">Call for today&rsquo;s hours</span>
+                <span className="italic text-ink-soft">{l.callHours}</span>
               )}
             </dd>
           </dl>
@@ -68,19 +78,34 @@ export function Location() {
               rel="noopener noreferrer"
               className="label inline-flex h-14 items-center bg-ink px-6 text-paper transition-colors hover:bg-paprika"
             >
-              Get directions →
+              {l.directions} {t.arrow}
             </a>
             <a href={telHref} className="label inline-flex h-14 items-center border border-ink px-6 hover:border-paprika hover:text-paprika">
-              Call ahead
+              {l.callAhead}
             </a>
           </div>
+
+          {online.length > 0 && (
+            <div className="mt-8 border-t border-rule pt-5">
+              <p className="label text-ink-soft">{l.orderOnline}</p>
+              <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
+                {online.map((o) => (
+                  <li key={o.label}>
+                    <a href={o.href} target="_blank" rel="noopener noreferrer" className="font-editorial text-lg link-ink">
+                      {o.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
 
         {/* The map, framed like a folded street map tucked into the page. */}
         <figure className="col-span-12 -mx-4 sm:mx-0 lg:col-span-7 lg:mt-6">
           <div className="relative border-y-2 border-ink bg-paper-deep p-2 sm:border-2" data-reveal="image">
             <iframe
-              title={`Map showing ${site.name} at ${fullAddress}`}
+              title={l.mapTitle}
               src={mapEmbedSrc}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -93,10 +118,11 @@ export function Location() {
           </div>
           <figcaption className="label mt-3 flex justify-between gap-4 px-4 text-ink-soft sm:px-0">
             <span>
-              Fig. 6 — 151st St<span className="hidden sm:inline">, Orland Park</span>
+              {l.fig}
+              <span className="hidden sm:inline">{l.figCity}</span>
             </span>
             <a href={directionsHref} target="_blank" rel="noopener noreferrer" className="link-ink">
-              Open in Maps
+              {l.openMaps}
             </a>
           </figcaption>
         </figure>

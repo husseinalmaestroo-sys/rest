@@ -1,11 +1,15 @@
-import { nav, site, telHref, directionsHref } from "@/content/site";
+import type { Dict } from "@/content/i18n";
+import { site, telHref, directionsHref } from "@/content/site";
+import { HoursList, OpenNow } from "./Hours";
 import { Wordmark } from "./Wordmark";
 
-export function Footer() {
+export function Footer({ t }: { t: Dict }) {
   const socials = [
     { label: "Facebook", href: site.social.facebook },
     { label: "Instagram", href: site.social.instagram },
   ].filter((s): s is { label: string; href: string } => Boolean(s.href));
+
+  const links = [...t.nav.map((n) => ({ ...n, href: `${t.home}${n.href}` })), { href: t.menuHref, label: t.header.fullMenu }];
 
   return (
     <footer className="border-t-2 border-ink pb-24 md:pb-0">
@@ -13,15 +17,16 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-12">
           <div className="col-span-2 md:col-span-5">
             <Wordmark as="p" className="text-[1.7rem] sm:text-[2.2rem]" />
-            <p className="mt-3 max-w-[34ch] font-editorial text-ink-soft">
-              Middle Eastern market, bakery, prepared food and catering in Orland Park, Illinois.
-            </p>
+            <p className="mt-3 max-w-[34ch] font-editorial text-ink-soft">{t.footer.tagline}</p>
+            <a href={t.switchTo.href} hrefLang={t.switchTo.lang} lang={t.switchTo.lang} className="mt-5 inline-block link-ink">
+              {t.switchTo.label}
+            </a>
           </div>
 
           <nav aria-label="Footer" className="md:col-span-2">
-            <p className="label text-ink-soft">The shop</p>
+            <p className="label text-ink-soft">{t.footer.shop}</p>
             <ul className="mt-3 space-y-1.5">
-              {nav.map((item) => (
+              {links.map((item) => (
                 <li key={item.href}>
                   <a href={item.href} className="hover:text-paprika">
                     {item.label}
@@ -32,34 +37,31 @@ export function Footer() {
           </nav>
 
           <div className="md:col-span-3">
-            <p className="label text-ink-soft">Visit</p>
+            <p className="label text-ink-soft">{t.footer.visit}</p>
             <address className="mt-3 not-italic">
               <a href={directionsHref} target="_blank" rel="noopener noreferrer" className="hover:text-paprika">
-                {site.address.street}
+                {t.header.streetLine}
                 <br />
-                {site.address.city}, {site.address.region} {site.address.postalCode}
+                {t.header.cityLine} {site.address.postalCode}
               </a>
               <br />
-              <a href={telHref} className="mt-2 inline-block tabular-nums hover:text-paprika">
+              <a href={telHref} dir="ltr" className="mt-2 inline-block tabular-nums hover:text-paprika">
                 {site.phone.display}
               </a>
             </address>
           </div>
 
           <div className="md:col-span-2">
-            <p className="label text-ink-soft">Hours</p>
+            <p className="label text-ink-soft">{t.footer.hours}</p>
             {site.hours ? (
-              <ul className="mt-3 space-y-1">
-                {site.hours.map((h) => (
-                  <li key={h.days}>
-                    {h.days}: {h.hours}
-                  </li>
-                ))}
-              </ul>
+              <>
+                <OpenNow locale={t.locale} className="mt-3" />
+                <HoursList locale={t.locale} className="mt-3 space-y-1" />
+              </>
             ) : (
               <p className="mt-3">
                 <a href={telHref} className="hover:text-paprika">
-                  Call for today&rsquo;s hours
+                  {t.footer.callHours}
                 </a>
               </p>
             )}
@@ -83,9 +85,9 @@ export function Footer() {
           </p>
           <p className="flex items-baseline gap-3 text-ink-soft">
             <span lang="ar" dir="rtl" className="font-arabic text-2xl text-paprika">
-              صحتين
+              {t.footer.sahteinScript}
             </span>
-            <span className="font-editorial italic">Sahtein — to your health.</span>
+            <span className="font-editorial italic">{t.footer.sahtein}</span>
           </p>
         </div>
       </div>

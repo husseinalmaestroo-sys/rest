@@ -4,7 +4,7 @@
  */
 export function Wordmark({ className = "", as: Tag = "span" }: { className?: string; as?: "span" | "p" }) {
   return (
-    <Tag className={`display inline-flex items-baseline whitespace-nowrap ${className}`}>
+    <Tag dir="ltr" lang="en" className={`display inline-flex items-baseline whitespace-nowrap ${className}`}>
       <span>Orland Market</span>
       <span className="mx-[0.18em] font-editorial text-[1.12em] font-normal italic text-paprika" aria-hidden="true">
         &amp;
