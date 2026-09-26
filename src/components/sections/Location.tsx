@@ -1,6 +1,7 @@
 import type { Dict } from "@/content/i18n";
 import { directionsHref, mapEmbedSrc, site, telHref } from "@/content/site";
 import { HoursList, OpenNow } from "../Hours";
+import { MaybeLink } from "../MaybeLink";
 import { Folio } from "../SectionHead";
 
 const onlineLabels = { doordash: "DoorDash", ubereats: "Uber Eats", grubhub: "Grubhub" } as const;
@@ -91,9 +92,9 @@ export function Location({ t }: { t: Dict }) {
               <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
                 {online.map((o) => (
                   <li key={o.label}>
-                    <a href={o.href} target="_blank" rel="noopener noreferrer" className="font-editorial text-lg link-ink">
+                    <MaybeLink href={o.href} className="inline-flex h-11 items-center border border-ink px-4 font-editorial text-lg hover:border-paprika hover:text-paprika">
                       {o.label}
-                    </a>
+                    </MaybeLink>
                   </li>
                 ))}
               </ul>

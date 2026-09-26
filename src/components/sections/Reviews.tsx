@@ -90,16 +90,17 @@ export function Reviews({ t }: { t: Dict }) {
           {customerQuotes.length > 0 ? (
             customerQuotes.slice(0, 3).map((q, i) => (
               <figure
-                key={q.quote}
+                key={q.name}
                 className={`relative bg-[#f7f1e4] p-6 shadow-[0_14px_28px_-24px_rgb(35_26_19/0.7)] ${
                   ["rotate-[1.5deg]", "-rotate-[1deg] lg:ms-8", "rotate-[0.6deg]"][i]
                 }`}
                 data-reveal="up"
               >
                 <span aria-hidden="true" className="absolute -top-2 start-6 h-4 w-4 rounded-full bg-paprika shadow" />
-                <blockquote className="font-editorial text-[1.3rem] leading-snug italic">&ldquo;{q.quote}&rdquo;</blockquote>
+                <blockquote className="font-editorial text-[1.3rem] leading-snug italic">{t.locale === "ar" ? `«${q.quote.ar}»` : `“${q.quote.en}”`}</blockquote>
                 <figcaption className="label mt-4 text-ink-soft">
-                  — {q.name}, {r.via} {q.source}
+                  <span dir="ltr">— {q.name}</span>
+                  {q.source && `, ${r.via} ${q.source}`}
                 </figcaption>
               </figure>
             ))

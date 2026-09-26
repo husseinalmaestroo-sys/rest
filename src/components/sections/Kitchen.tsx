@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import type { Dict } from "@/content/i18n";
 import { photos } from "@/content/photos";
 import { site, telHref } from "@/content/site";
+import { HalalMark } from "../HalalMark";
 import { Photo } from "../Photo";
 import { Folio } from "../SectionHead";
 
@@ -65,6 +66,7 @@ export function Kitchen({ t }: { t: Dict }) {
             <p className="mt-8 max-w-[36ch] font-editorial text-[1.3rem] leading-snug text-paper/80" data-reveal="up">
               {k.lead}
             </p>
+            <HalalMark className="mt-6 text-wheat" />
 
             {/* Phones: a swipeable run of plates, like turning pages. */}
             <div className="-mx-4 mt-12 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-3 [scrollbar-width:none] sm:-mx-8 sm:px-8 lg:hidden">

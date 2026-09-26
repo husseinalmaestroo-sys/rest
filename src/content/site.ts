@@ -1,3 +1,5 @@
+import { DEMO, demo } from "./demo";
+
 /**
  * Verified business facts live here and only here.
  *
@@ -40,22 +42,22 @@ export const site = {
    * and the open-now badge stays hidden. Fill in to turn both on, e.g.
    * { mon: ["08:00", "21:00"], tue: ["08:00", "21:00"], ..., sun: null } — null = closed that day.
    */
-  hours: null as null | Record<Weekday, [open: string, close: string] | null>,
+  hours: (DEMO ? demo.hours : null) as null | Record<Weekday, [open: string, close: string] | null>,
 
   /** WhatsApp number in international format, digits only (e.g. "17089498890"). Turns on the WhatsApp button on the catering form. */
-  whatsapp: null as string | null,
+  whatsapp: (DEMO ? demo.whatsapp : null) as string | null,
 
-  /** Add real profile URLs when confirmed. Empty values are not rendered. */
+  /** Add real profile URLs when confirmed. Empty values are not rendered; PLACEHOLDER renders a non-link label. */
   social: {
-    facebook: null as string | null,
-    instagram: null as string | null,
+    facebook: (DEMO ? demo.social.facebook : null) as string | null,
+    instagram: (DEMO ? demo.social.instagram : null) as string | null,
   },
 
   /** Online ordering pages, only if the shop is actually listed. Empty values are not rendered. */
   orderOnline: {
-    doordash: null as string | null,
-    ubereats: null as string | null,
-    grubhub: null as string | null,
+    doordash: (DEMO ? demo.orderOnline.doordash : null) as string | null,
+    ubereats: (DEMO ? demo.orderOnline.ubereats : null) as string | null,
+    grubhub: (DEMO ? demo.orderOnline.grubhub : null) as string | null,
   },
 
   /**
@@ -63,9 +65,10 @@ export const site = {
    * its answer is filled in here (English and Arabic).
    */
   facts: {
-    halal: null as null | { en: string; ar: string },
-    parking: null as null | { en: string; ar: string },
-    delivery: null as null | { en: string; ar: string },
+    // Confirmed by the owner.
+    halal: { en: "Yes — the meat is halal.", ar: "إيه — اللحمة حلال." } as null | { en: string; ar: string },
+    parking: (DEMO ? demo.facts.parking : null) as null | { en: string; ar: string },
+    delivery: (DEMO ? demo.facts.delivery : null) as null | { en: string; ar: string },
   },
 
   /**

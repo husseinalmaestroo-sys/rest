@@ -1,6 +1,8 @@
 import type { Dict } from "@/content/i18n";
 import { site, telHref, directionsHref } from "@/content/site";
 import { HoursList, OpenNow } from "./Hours";
+import { MaybeLink } from "./MaybeLink";
+import { SocialIcon } from "./SocialIcon";
 import { Wordmark } from "./Wordmark";
 
 export function Footer({ t }: { t: Dict }) {
@@ -66,12 +68,13 @@ export function Footer({ t }: { t: Dict }) {
               </p>
             )}
             {socials.length > 0 && (
-              <ul className="mt-5 flex gap-4">
+              <ul className="mt-5 flex flex-col gap-2">
                 {socials.map((s) => (
                   <li key={s.label}>
-                    <a href={s.href} target="_blank" rel="noopener noreferrer" className="label link-ink">
-                      {s.label}
-                    </a>
+                    <MaybeLink href={s.href} className="inline-flex items-center gap-2 hover:text-paprika">
+                      <SocialIcon name={s.label} />
+                      <span className="label">{s.label}</span>
+                    </MaybeLink>
                   </li>
                 ))}
               </ul>

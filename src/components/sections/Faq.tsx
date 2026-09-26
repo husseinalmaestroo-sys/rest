@@ -1,6 +1,7 @@
 import type { Dict } from "@/content/i18n";
 import { directionsHref, site, telHref } from "@/content/site";
 import { HoursList } from "../Hours";
+import { MaybeLink } from "../MaybeLink";
 import { Folio } from "../SectionHead";
 import { orderOnlineLinks } from "./Location";
 
@@ -44,9 +45,9 @@ export function Faq({ t }: { t: Dict }) {
           {online.map((o, i) => (
             <span key={o.label}>
               {i > 0 && " · "}
-              <a href={o.href} target="_blank" rel="noopener noreferrer" className="link-ink">
+              <MaybeLink href={o.href} className="link-ink">
                 {o.label}
-              </a>
+              </MaybeLink>
             </span>
           ))}
         </>

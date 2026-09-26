@@ -1,3 +1,4 @@
+import { DEMO, demo } from "@/content/demo";
 import type { Dict } from "@/content/i18n";
 
 export type FreshItem = { item: string; note: string };
@@ -10,7 +11,7 @@ export type FreshItem = { item: string; note: string };
  */
 export async function loadFreshToday(): Promise<{ en: FreshItem[]; ar: FreshItem[] } | null> {
   const url = process.env.FRESH_TODAY_CSV_URL;
-  if (!url) return null;
+  if (!url) return DEMO ? demo.fresh : null;
   try {
     const res = await fetch(url, { next: { revalidate: 300 } });
     if (!res.ok) return null;

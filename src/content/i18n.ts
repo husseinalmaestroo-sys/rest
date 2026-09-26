@@ -4,6 +4,8 @@
  * purpose: no prices, ingredient claims or facts we haven't confirmed.
  */
 
+import { DEMO, demo } from "./demo";
+
 export type Locale = "en" | "ar";
 
 const en = {
@@ -533,11 +535,13 @@ export const dictionaries: Record<Locale, Dict> = { en, ar };
  * Prices for the menu page, per item key. Leave null to show "Ask".
  * e.g. { pita: "$3.99 / bag" }
  */
-export const menuPrices: Record<string, string | null> = {};
+export const menuPrices: Record<string, string | null> = DEMO ? demo.prices : {};
 
 /**
  * Real customer quotes only — copy them word for word from public reviews,
  * with the reviewer's first name or initial and the source. They appear as
  * pinned clippings next to the rating; nothing shows while this is empty.
  */
-export const customerQuotes: { quote: string; name: string; source: string }[] = [];
+export const customerQuotes: { quote: { en: string; ar: string }; name: string; source?: string }[] = DEMO
+  ? demo.quotes
+  : [];

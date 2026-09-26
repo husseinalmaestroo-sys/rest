@@ -3,6 +3,7 @@ import { site, telHref } from "@/content/site";
 import { CallBar } from "./CallBar";
 import { Drawing, type DrawingName } from "./drawings";
 import { Footer } from "./Footer";
+import { HalalMark } from "./HalalMark";
 import { Header } from "./Header";
 
 type Line = { key: string; name: string; note: string; drawing?: DrawingName };
@@ -75,6 +76,7 @@ export function MenuPage({ locale }: { locale: Locale }) {
               <p className="label border-y border-ink py-2">{site.name}</p>
             </div>
             <h1 className="display mt-8 text-[clamp(3.4rem,10vw,7rem)]">{m.title}</h1>
+            <HalalMark className="mt-3 text-paprika" />
             <p className="mx-auto mt-4 max-w-[52ch] font-editorial text-lg text-ink-soft">
               {m.intro}{" "}
               <a href={telHref} dir="ltr" className="link-ink whitespace-nowrap text-ink">

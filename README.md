@@ -26,6 +26,8 @@ The site is designed to look like a printed neighbourhood food paper rather than
 
 ## Content: what's real and what's waiting
 
+> **Demo mode is on.** `src/content/demo.ts` fills in sample hours, prices, parking/delivery answers, review quotes and "fresh today" items. Social and ordering accounts are placeholders that look like links but go nowhere. None of it is verified. Before launch, set `NEXT_PUBLIC_DEMO=off` and all of it disappears. The halal answer is real (confirmed by the owner) and stays either way.
+
 Business facts are in `src/content/site.ts`, and all wording (English and Arabic) is in `src/content/i18n.ts`. Nothing in them was invented. Features that depend on a fact the shop hasn't confirmed yet are built but stay hidden until that fact is filled in.
 
 | Feature | Status | Turn it on in |
