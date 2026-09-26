@@ -46,7 +46,9 @@ export function OpenNow({ locale, className = "" }: { locale: Locale; className?
     return () => clearInterval(id);
   }, []);
 
-  if (!site.hours || !state) return null;
+  if (!site.hours) return null;
+  // Before the first client tick: an empty, labelled slot (keeps SSR and static copies simple).
+  if (!state) return <span data-open-now={locale} className={className} />;
 
   const detail = state.open
     ? state.until && t.hours.closesAt(formatTime(state.until, t.locale))
